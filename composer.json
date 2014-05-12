@@ -1,0 +1,13 @@
+{
+	"name": "widerplan/kohana-core",
+	"description": "Fork of Kohana Core",
+	"license": "BSD-3-Clause",
+	"replace": {
+		"kohana/core": "3.2.*"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-3.2.x": "3.2.x-dev"
+		}
+	}
+}
