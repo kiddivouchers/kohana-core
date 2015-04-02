@@ -15,10 +15,12 @@ $application_cols = array('min', 'max', 'average', 'current');
 	<table class="profiler">
 		<tr class="group">
 			<th class="name" rowspan="2"><?php echo __(ucfirst($group)) ?></th>
-			<td class="time" colspan="4"><?php echo number_format($group_stats[$group]['total']['time'], 6) ?> <abbr title="seconds">s</abbr></td>
+			<td class="time" colspan="3"><?php echo count($benchmarks); ?> Distinct</td>
+			<td class="time" colspan="1"><?php echo number_format($group_stats[$group]['total']['time'], 6) ?> <abbr title="seconds">s</abbr></td>
 		</tr>
 		<tr class="group">
-			<td class="memory" colspan="4"><?php echo number_format($group_stats[$group]['total']['memory'] / 1024, 4) ?> <abbr title="kilobyte">kB</abbr></td>
+			<td class="memory" colspan="3"><?php echo count($benchmarks, COUNT_RECURSIVE) - count($benchmarks); ?> Total</td>
+			<td class="memory" colspan="1"><?php echo number_format($group_stats[$group]['total']['memory'] / 1024, 4) ?> <abbr title="kilobyte">kB</abbr></td>
 		</tr>
 		<tr class="headers">
 			<th class="name"><?php echo __('Benchmark') ?></th>
