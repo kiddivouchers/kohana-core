@@ -2,6 +2,9 @@
 	"name": "widerplan/kohana-core",
 	"description": "Fork of Kohana Core",
 	"license": "BSD-3-Clause",
+	"require": {
+		"php": "~5.3"
+	},
 	"replace": {
 		"kohana/core": "3.2.*"
 	},
