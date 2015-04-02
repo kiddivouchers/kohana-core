@@ -22,6 +22,8 @@ class Kohana_Kohana_Exception extends Exception {
 		E_STRICT             => 'Strict',
 		E_NOTICE             => 'Notice',
 		E_RECOVERABLE_ERROR  => 'Recoverable Error',
+		E_DEPRECATED         => 'Deprecated',
+		E_USER_DEPRECATED    => 'User Deprecated',
 	);
 
 	/**
@@ -47,13 +49,6 @@ class Kohana_Kohana_Exception extends Exception {
 	 */
 	public function __construct($message, array $variables = NULL, $code = 0)
 	{
-		if (defined('E_DEPRECATED'))
-		{
-			// E_DEPRECATED only exists in PHP >= 5.3.0
-			Kohana_Exception::$php_errors[E_DEPRECATED] = 'Deprecated';
-			Kohana_Exception::$php_errors[E_USER_DEPRECATED] = 'User Deprecated';
-		}
-
 		// Set the message
 		$message = __($message, $variables);
 
