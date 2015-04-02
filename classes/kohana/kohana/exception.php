@@ -51,6 +51,7 @@ class Kohana_Kohana_Exception extends Exception {
 		{
 			// E_DEPRECATED only exists in PHP >= 5.3.0
 			Kohana_Exception::$php_errors[E_DEPRECATED] = 'Deprecated';
+			Kohana_Exception::$php_errors[E_USER_DEPRECATED] = 'User Deprecated';
 		}
 
 		// Set the message
