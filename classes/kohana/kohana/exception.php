@@ -76,21 +76,21 @@ class Kohana_Kohana_Exception extends Exception {
 	/**
 	 * Inline exception handler, displays the error message, source of the
 	 * exception, and the stack trace of the error.
-	 * 
+	 *
 	 * Re-registers Kohana::shutdown_handler to make the PHP engine
 	 * run the shutdown twice. We'll be exit(1)-ing from there.
 	 * @see issue #3931
-	 * 
+	 *
 	 * @uses    Kohana_Exception::text
-	 * @param   Exception   $e
+	 * @param   Exception|Throwable $e
 	 * @return  boolean
 	 */
-	public static function handler(Exception $e)
+	public static function handler(/* Throwable */ $e)
 	{
 		try
 		{
 			register_shutdown_function(array('Kohana', 'shutdown_handler'));
-			
+
 			// Get the exception information
 			$type    = get_class($e);
 			$code    = $e->getCode();
@@ -205,10 +205,10 @@ class Kohana_Kohana_Exception extends Exception {
 	 *
 	 * Error [ Code ]: Message ~ File [ Line ]
 	 *
-	 * @param   Exception   $e
+	 * @param   Exception|Throwable $e
 	 * @return  string
 	 */
-	public static function text(Exception $e)
+	public static function text(/* Throwable */ $e)
 	{
 		return sprintf('%s [ %s ]: %s ~ %s [ %d ]',
 			get_class($e), $e->getCode(), strip_tags($e->getMessage()), Debug::path($e->getFile()), $e->getLine());
