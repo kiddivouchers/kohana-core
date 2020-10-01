@@ -62,7 +62,7 @@ class Kohana_Encrypt {
 	/**
 	 * @param string $key Encryption key (hexadecimal)
 	 */
-	public function __construct($key)
+	public function __construct(string $key)
 	{
 		$this->key = hex2bin($key);
 	}
