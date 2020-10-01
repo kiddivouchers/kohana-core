@@ -13,17 +13,51 @@ class Kohana_Encrypt {
 	/**
 	 * @var string
 	 */
-	private static $default = 'default';
+	public static $default = 'default';
 
 	/**
 	 * @var array
 	 */
-	private static $instances = [];
+	public static $instances = [];
 
 	/**
 	 * @var string
 	 */
 	private $key;
+
+	/**
+	 * Returns a singleton instance of Encrypt. An encryption key must be
+	 * provided in your "encrypt" configuration file.
+	 *
+	 * @param string $name configuration group name
+	 *
+	 * @return self
+	 */
+	public static function instance($name = null)
+	{
+		if ($name === null)
+		{
+			$name = self::$default;
+		}
+
+		if (!isset(self::$instances[$name]))
+		{
+			// Load the configuration data
+			$config = \Kohana::$config->load('encrypt')->$name;
+
+			if (!isset($config['key']))
+			{
+				// No default encryption key is provided!
+				throw new \Kohana_Exception('No encryption key is defined in the encryption configuration group: :group',
+					array(':group' => $name));
+			}
+
+			// Create a new instance
+			self::$instances[$name] = new self($config['key']);
+		}
+
+		return self::$instances[$name];
+	}
 
 	/**
 	 * @param string $key Encryption key (hexadecimal)
@@ -85,37 +119,5 @@ class Kohana_Encrypt {
 		return $encryptedData;
 	}
 
-	/**
-	 * Returns a singleton instance of Encrypt. An encryption key must be
-	 * provided in your "encrypt" configuration file.
-	 *
-	 * @param string $name configuration group name
-	 *
-	 * @return self
-	 */
-	public static function instance($name = null)
-	{
-		if ($name === null)
-		{
-			$name = self::$default;
-		}
 
-		if (!isset(self::$instances[$name]))
-		{
-			// Load the configuration data
-			$config = \Kohana::$config->load('encrypt')->$name;
-
-			if (!isset($config['key']))
-			{
-				// No default encryption key is provided!
-				throw new \Kohana_Exception('No encryption key is defined in the encryption configuration group: :group',
-					array(':group' => $name));
-			}
-
-			// Create a new instance
-			self::$instances[$name] = new self($config['key']);
-		}
-
-		return self::$instances[$name];
-	}
-}
+} // End Encrypt
