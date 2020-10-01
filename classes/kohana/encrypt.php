@@ -31,16 +31,16 @@ class Kohana_Encrypt {
 	 *
 	 * @param string $name configuration group name
 	 *
-	 * @return self
+	 * @return Encrypt
 	 */
 	public static function instance($name = null)
 	{
 		if ($name === null)
 		{
-			$name = self::$default;
+			$name = Encrypt::$default;
 		}
 
-		if (!isset(self::$instances[$name]))
+		if (!isset(Encrypt::$instances[$name]))
 		{
 			// Load the configuration data
 			$config = \Kohana::$config->load('encrypt')->$name;
@@ -48,15 +48,15 @@ class Kohana_Encrypt {
 			if (!isset($config['key']))
 			{
 				// No default encryption key is provided!
-				throw new \Kohana_Exception('No encryption key is defined in the encryption configuration group: :group',
+				throw new Kohana_Exception('No encryption key is defined in the encryption configuration group: :group',
 					array(':group' => $name));
 			}
 
 			// Create a new instance
-			self::$instances[$name] = new self($config['key']);
+			Encrypt::$instances[$name] = new Encrypt($config['key']);
 		}
 
-		return self::$instances[$name];
+		return Encrypt::$instances[$name];
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Kohana_Encrypt {
 		if (strlen($key) !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES)
 		{
 			// The key has the wrong length
-			throw new \Kohana_Exception(
+			throw new Kohana_Exception(
 				'The encryption key must have a length of :number bytes',
 				[':number' => SODIUM_CRYPTO_SECRETBOX_KEYBYTES]
 			);
