@@ -91,7 +91,7 @@ class Kohana_Encrypt {
 		$encryptedData = sodium_crypto_secretbox($data, $nonce, $this->key);
 
 		// Base 64 encode the encrypted data.
-		return base64_encode(bin2hex($nonce.$encryptedData));
+		return base64_encode($nonce.$encryptedData);
 	}
 
 	/**
@@ -112,15 +112,15 @@ class Kohana_Encrypt {
 		}
 
 		// Nonce is twice the size when converted to hexadecimal.
-		$nonceSize = SODIUM_CRYPTO_SECRETBOX_NONCEBYTES * 2;
+		$nonceSize = SODIUM_CRYPTO_SECRETBOX_NONCEBYTES;
 
-		// Extract the nonce (hexadecimal) from the data (hexadecimal).
+		// Extract the nonce from the data.
 		$nonce = substr($data, 0, $nonceSize);
 
 		// Remove the nonce from the data.
 		$data = substr($data, $nonceSize);
 
-		$encryptedData = sodium_crypto_secretbox_open(hex2bin($data), hex2bin($nonce), $this->key);
+		$encryptedData = sodium_crypto_secretbox_open($data, $nonce, $this->key);
 
 		if (!$encryptedData)
 		{
