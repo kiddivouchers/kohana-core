@@ -66,7 +66,7 @@ class Kohana_Encrypt {
 	{
 		$key = hex2bin($key);
 
-		if (mb_strlen($key, '8bit') !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES)
+		if (strlen($key) !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES)
 		{
 			// The key has the wrong length
 			throw new \Kohana_Exception(
