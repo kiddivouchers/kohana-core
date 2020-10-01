@@ -64,7 +64,18 @@ class Kohana_Encrypt {
 	 */
 	public function __construct(string $key)
 	{
-		$this->key = hex2bin($key);
+		$key = hex2bin($key);
+
+		if (mb_strlen($key, '8bit') !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES)
+		{
+			// The key has the wrong length
+			throw new \Kohana_Exception(
+				'The encryption key must have a length of :number bytes',
+				[':number' => SODIUM_CRYPTO_SECRETBOX_KEYBYTES]
+			);
+		}
+
+		$this->key = $key;
 	}
 
 	/**
