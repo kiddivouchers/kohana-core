@@ -50,9 +50,6 @@ class Kohana_Session_Native extends Session {
 			Cookie::$httponly
 		);
 
-		// Do not allow PHP to send Cache-Control headers
-		session_cache_limiter(FALSE);
-
 		// Set the session cookie name
 		session_name($this->_name);
 
