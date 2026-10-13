@@ -18,7 +18,7 @@ class Kohana_HTTP_Exception extends Kohana_Exception {
 	 * @param   integer $code       the http status code
 	 * @return  void
 	 */
-	public function __construct($message = NULL, array $variables = NULL, $code = 0)
+	public function __construct($message = NULL, ?array $variables = NULL, $code = 0)
 	{
 		if ($code == 0)
 		{

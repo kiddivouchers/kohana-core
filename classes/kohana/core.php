@@ -192,7 +192,7 @@ class Kohana_Core {
 	 * @uses    Kohana::cache
 	 * @uses    Profiler
 	 */
-	public static function init(array $settings = NULL)
+	public static function init(?array $settings = NULL)
 	{
 		if (Kohana::$_init)
 		{
@@ -526,7 +526,7 @@ class Kohana_Core {
 	 * @param   array   $modules    list of module paths
 	 * @return  array   enabled modules
 	 */
-	public static function modules(array $modules = NULL)
+	public static function modules(?array $modules = NULL)
 	{
 		if ($modules === NULL)
 		{
@@ -715,7 +715,7 @@ class Kohana_Core {
 	 * @param   array   $paths      list of paths to search
 	 * @return  array
 	 */
-	public static function list_files($directory = NULL, array $paths = NULL)
+	public static function list_files($directory = NULL, ?array $paths = NULL)
 	{
 		if ($directory !== NULL)
 		{
@@ -967,7 +967,7 @@ class Kohana_Core {
 
 	/**
 	 * Catches errors that are not caught by the error handler, such as E_PARSE.
-	 * 
+	 *
 	 * In case of an exception, the Kohana exception handler registers
 	 * this shutdown_handler again. We'll count the number of visits to
 	 * this function using a local static function variable, and exit(1)
@@ -985,7 +985,7 @@ class Kohana_Core {
 			exit(1);
 		}
 		$shutdown_handler_visited = TRUE;
-		
+
 		if ( ! Kohana::$_init)
 		{
 			// Do not execute when not active

@@ -208,7 +208,7 @@ class Kohana_Validation implements ArrayAccess {
 	 * @param   array       $params extra parameters for the rule
 	 * @return  $this
 	 */
-	public function rule($field, $rule, array $params = NULL)
+	public function rule($field, $rule, ?array $params = NULL)
 	{
 		if ($params === NULL)
 		{
@@ -457,7 +457,7 @@ class Kohana_Validation implements ArrayAccess {
 	 * @param   array   $params
 	 * @return  $this
 	 */
-	public function error($field, $error, array $params = NULL)
+	public function error($field, $error, ?array $params = NULL)
 	{
 		$this->_errors[$field] = array($error, $params);
 

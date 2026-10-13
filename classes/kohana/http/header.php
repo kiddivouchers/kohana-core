@@ -857,7 +857,7 @@ class Kohana_HTTP_Header extends ArrayObject {
 	 * @return  mixed
 	 * @since   3.2.0
 	 */
-	public function send_headers(HTTP_Response $response = NULL, $replace = FALSE, $callback = NULL)
+	public function send_headers(?HTTP_Response $response = NULL, $replace = FALSE, $callback = NULL)
 	{
 		if ($response === NULL)
 		{

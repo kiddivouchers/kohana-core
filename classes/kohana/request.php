@@ -53,7 +53,7 @@ class Kohana_Request implements HTTP_Request {
 	 * @uses    Route::all
 	 * @uses    Route::matches
 	 */
-	public static function factory($uri = TRUE, HTTP_Cache $cache = NULL, $injected_routes = array())
+	public static function factory($uri = TRUE, ?HTTP_Cache $cache = NULL, $injected_routes = array())
 	{
 		// If this is the initial request
 		if ( ! Request::$initial)
@@ -607,7 +607,7 @@ class Kohana_Request implements HTTP_Request {
 	 * @param   array    $accepts  Default values
 	 * @return  array
 	 */
-	protected static function _parse_accept( & $header, array $accepts = NULL)
+	protected static function _parse_accept( & $header, ?array $accepts = NULL)
 	{
 		if ( ! empty($header))
 		{
@@ -773,7 +773,7 @@ class Kohana_Request implements HTTP_Request {
 	 * @uses    Route::all
 	 * @uses    Route::matches
 	 */
-	public function __construct($uri, HTTP_Cache $cache = NULL, $injected_routes = array())
+	public function __construct($uri, ?HTTP_Cache $cache = NULL, $injected_routes = array())
 	{
 		// Initialise the header
 		$this->_header = new HTTP_Header(array());
@@ -1012,7 +1012,7 @@ class Kohana_Request implements HTTP_Request {
 	 * @param   string $route
 	 * @return  mixed
 	 */
-	public function route(Route $route = NULL)
+	public function route(?Route $route = NULL)
 	{
 		if ($route === NULL)
 		{
@@ -1092,7 +1092,7 @@ class Kohana_Request implements HTTP_Request {
 	 * @return  Request_Client
 	 * @return  self
 	 */
-	public function client(Request_Client $client = NULL)
+	public function client(?Request_Client $client = NULL)
 	{
 		if ($client === NULL)
 			return $this->_client;
@@ -1231,7 +1231,7 @@ class Kohana_Request implements HTTP_Request {
 	 * @return  Response
 	 * @return  void
 	 */
-	public function response(Response $response = NULL)
+	public function response(?Response $response = NULL)
 	{
 		if ($response === NULL)
 		{

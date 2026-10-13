@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Request Client. Processes a [Request] and handles [HTTP_Caching] if 
+ * Request Client. Processes a [Request] and handles [HTTP_Caching] if
  * available. Will usually return a [Response] object as a result of the
  * request unless an unexpected error occurs.
  *
@@ -67,7 +67,7 @@ abstract class Kohana_Request_Client {
 	/**
 	 * Processes the request passed to it and returns the response from
 	 * the URI resource identified.
-	 * 
+	 *
 	 * This method must be implemented by all clients.
 	 *
 	 * @param   Request $request    request to execute by client
@@ -84,7 +84,7 @@ abstract class Kohana_Request_Client {
 	 * @return  HTTP_Cache
 	 * @return  Request_Client
 	 */
-	public function cache(HTTP_Cache $cache = NULL)
+	public function cache(?HTTP_Cache $cache = NULL)
 	{
 		if ($cache === NULL)
 			return $this->_cache;

@@ -122,7 +122,7 @@ class Kohana_URL {
 	/**
 	 * Callback used for encoding all non-ASCII characters, as per RFC 1738
 	 * Used by URL::site()
-	 * 
+	 *
 	 * @param  array $matches  Array of matches from preg_replace_callback()
 	 * @return string          Encoded string
 	 */
@@ -147,7 +147,7 @@ class Kohana_URL {
 	 * @param   boolean  $use_get  Include current request GET parameters
 	 * @return  string
 	 */
-	public static function query(array $params = NULL, $use_get = TRUE)
+	public static function query(?array $params = NULL, $use_get = TRUE)
 	{
 		if ($use_get)
 		{
