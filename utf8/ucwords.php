@@ -15,7 +15,10 @@ function _ucwords($str)
 
 	// [\x0c\x09\x0b\x0a\x0d\x20] matches form feeds, horizontal tabs, vertical tabs, linefeeds and carriage returns.
 	// This corresponds to the definition of a 'word' defined at http://php.net/ucwords
-	$callback = create_function('$matches', 'return UTF8::strtoupper($matches[0]);');
+	$callback = function ($matches) {
+		return UTF8::strtoupper($matches[0]);
+	};
+
 	return preg_replace_callback(
 		'/(?<=^|[\x0c\x09\x0b\x0a\x0d\x20])[^\x0c\x09\x0b\x0a\x0d\x20]/u',
 		$callback,
