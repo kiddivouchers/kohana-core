@@ -279,9 +279,12 @@ class Kohana_Date {
 
 		if ($format === Date::MONTHS_LONG OR $format === Date::MONTHS_SHORT)
 		{
+			$php_format = ($format === Date::MONTHS_LONG) ? 'F' : 'M';
+
 			for ($i = 1; $i <= 12; ++$i)
 			{
-				$months[$i] = strftime($format, mktime(0, 0, 0, $i, 1));
+				$timestamp = mktime(0, 0, 0, $i, 1);
+				$months[$i] = date($php_format, $timestamp);
 			}
 		}
 		else
