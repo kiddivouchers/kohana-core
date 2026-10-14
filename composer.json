@@ -3,7 +3,7 @@
 	"description": "Fork of Kohana Core",
 	"license": "BSD-3-Clause",
 	"require": {
-		"php": "^7.3"
+		"php": "^8"
 	},
 	"replace": {
 		"kohana/core": "3.2.*"
