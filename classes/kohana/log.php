@@ -91,7 +91,7 @@ class Kohana_Log {
 		{
 			$levels = range($min_level, $levels);
 		}
-		
+
 		$this->_writers["{$writer}"] = array
 		(
 			'object' => $writer,
@@ -130,7 +130,7 @@ class Kohana_Log {
 	 * @param   array   $values     values to replace in the message
 	 * @return  Log
 	 */
-	public function add($level, $message, array $values = NULL)
+	public function add($level, $message, ?array $values = NULL)
 	{
 		if ($values)
 		{

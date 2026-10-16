@@ -235,8 +235,8 @@ class Kohana_Text {
 	/**
 	 * Uppercase words that are not separated by spaces, using a custom
 	 * delimiter or the default.
-	 * 
-	 *      $str = Text::ucfirst('content-type'); // returns "Content-Type" 
+	 *
+	 *      $str = Text::ucfirst('content-type'); // returns "Content-Type"
 	 *
 	 * @param   string  $string     string to transform
 	 * @param   string  $delimiter  delimiter to use
@@ -299,8 +299,9 @@ class Kohana_Text {
 		// if $replacement is a single character: replace each of the characters of the badword with $replacement
 		if (UTF8::strlen($replacement) == 1)
 		{
-			// issue #4819: use preg_replace_callback, preg_replace with /e modifier is depricated for PHP 5.5.0
-			$callback = create_function('$matches', 'return str_repeat("' . $replacement . '", UTF8::strlen($matches[1]));');
+			$callback = function ($matches) use ($replacement) {
+				return str_repeat($replacement, UTF8::strlen($matches[1]));
+			};
 
 			return preg_replace_callback($regex, $callback, $str);
 		}
@@ -602,7 +603,7 @@ class Kohana_Text {
 	 */
 	public static function widont($str)
 	{
-		// use '%' as delimiter and 'x' as modifier 
+		// use '%' as delimiter and 'x' as modifier
  		$widont_regex = "%
 			((?:</?(?:a|em|span|strong|i|b)[^>]*>)|[^<>\s]) # must be proceeded by an approved inline opening or closing tag or a nontag/nonspace
 			\s+                                             # the space to replace

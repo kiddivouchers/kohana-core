@@ -187,12 +187,11 @@ class Kohana_Core {
 	 * @throws  Kohana_Exception
 	 * @param   array   $settings   Array of settings.  See above.
 	 * @return  void
-	 * @uses    Kohana::globals
 	 * @uses    Kohana::sanitize
 	 * @uses    Kohana::cache
 	 * @uses    Profiler
 	 */
-	public static function init(array $settings = NULL)
+	public static function init(?array $settings = NULL)
 	{
 		if (Kohana::$_init)
 		{
@@ -229,12 +228,6 @@ class Kohana_Core {
 
 		// Enable the Kohana shutdown handler, which catches E_FATAL errors.
 		register_shutdown_function(array('Kohana', 'shutdown_handler'));
-
-		if (ini_get('register_globals'))
-		{
-			// Reverse the effects of register_globals
-			Kohana::globals();
-		}
 
 		if (isset($settings['expose']))
 		{
@@ -387,53 +380,6 @@ class Kohana_Core {
 	}
 
 	/**
-	 * Reverts the effects of the `register_globals` PHP setting by unsetting
-	 * all global variables except for the default super globals (GPCS, etc),
-	 * which is a [potential security hole.][ref-wikibooks]
-	 *
-	 * This is called automatically by [Kohana::init] if `register_globals` is
-	 * on.
-	 *
-	 *
-	 * [ref-wikibooks]: http://en.wikibooks.org/wiki/PHP_Programming/Register_Globals
-	 *
-	 * @return  void
-	 */
-	public static function globals()
-	{
-		if (isset($_REQUEST['GLOBALS']) OR isset($_FILES['GLOBALS']))
-		{
-			// Prevent malicious GLOBALS overload attack
-			echo "Global variable overload attack detected! Request aborted.\n";
-
-			// Exit with an error status
-			exit(1);
-		}
-
-		// Get the variable names of all globals
-		$global_variables = array_keys($GLOBALS);
-
-		// Remove the standard global variables from the list
-		$global_variables = array_diff($global_variables, array(
-			'_COOKIE',
-			'_ENV',
-			'_GET',
-			'_FILES',
-			'_POST',
-			'_REQUEST',
-			'_SERVER',
-			'_SESSION',
-			'GLOBALS',
-		));
-
-		foreach ($global_variables as $name)
-		{
-			// Unset the global variable, effectively disabling register_globals
-			unset($GLOBALS[$name]);
-		}
-	}
-
-	/**
 	 * Recursively sanitizes an input variable:
 	 *
 	 * - Strips slashes if magic quotes are enabled
@@ -526,7 +472,7 @@ class Kohana_Core {
 	 * @param   array   $modules    list of module paths
 	 * @return  array   enabled modules
 	 */
-	public static function modules(array $modules = NULL)
+	public static function modules(?array $modules = NULL)
 	{
 		if ($modules === NULL)
 		{
@@ -715,7 +661,7 @@ class Kohana_Core {
 	 * @param   array   $paths      list of paths to search
 	 * @return  array
 	 */
-	public static function list_files($directory = NULL, array $paths = NULL)
+	public static function list_files($directory = NULL, ?array $paths = NULL)
 	{
 		if ($directory !== NULL)
 		{
@@ -967,7 +913,7 @@ class Kohana_Core {
 
 	/**
 	 * Catches errors that are not caught by the error handler, such as E_PARSE.
-	 * 
+	 *
 	 * In case of an exception, the Kohana exception handler registers
 	 * this shutdown_handler again. We'll count the number of visits to
 	 * this function using a local static function variable, and exit(1)
@@ -985,7 +931,7 @@ class Kohana_Core {
 			exit(1);
 		}
 		$shutdown_handler_visited = TRUE;
-		
+
 		if ( ! Kohana::$_init)
 		{
 			// Do not execute when not active

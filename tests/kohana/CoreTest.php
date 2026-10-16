@@ -100,21 +100,6 @@ class Kohana_CoreTest extends Unittest_TestCase
 	}
 
 	/**
-	 * Tests Kohana::globals()
-	 *
-	 * @test
-	 * @covers Kohana::globals
-	 */
-	public function test_globals_removes_user_def_globals()
-	{
-		$GLOBALS = array('hackers' => 'foobar','name' => array('','',''), '_POST' => array());
-
-		Kohana::globals();
-
-		$this->assertEquals(array('_POST' => array()), $GLOBALS);
-	}
-
-	/**
 	 * Provides test data for testCache()
 	 *
 	 * @return array
